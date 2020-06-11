@@ -125,5 +125,5 @@ func save() {
 		line := fmt.Sprintf("| [%s](%s) | %d | %d | %d | %s | %s |\n", repo.Name, repo.URL, repo.Stars, repo.Forks, repo.OpenIssues, repo.Description, repo.LastCommit.Commit.Author.Date.Format("2006-01-02 15:04:05"))
 		readme.WriteString(line)
 	}
-	readme.WriteString(fmt.Sprintf("*Last Automatic Update Time: %v*", time.Now().Format("2006-01-02 15:04:05")))
+	readme.WriteString(fmt.Sprintf("\n*Last Automatic Update Time: %v*", time.Now().Format("2006-01-02 15:04:05")))
 }

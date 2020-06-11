@@ -19,4 +19,5 @@ Go ORM Frameworks Ranking List
 | [go-sqlbuilder](https://github.com/huandu/go-sqlbuilder) | 388 | 48 | 0 | A flexible and powerful SQL string builder library plus a zero-config ORM. | 2019-11-21 06:53:43 |
 | [gosql](https://github.com/rushteam/gosql) | 82 | 7 | 1 | golang orm and sql builder | 2020-06-02 02:42:57 |
 | [go-firestorm](https://github.com/jschoedt/go-firestorm) | 14 | 3 | 0 | Simple Go ORM for Google/Firebase Cloud Firestore | 2019-10-28 10:25:54 |
-*Last Automatic Update Time: 2020-06-11 16:20:33*
+
+*Last Automatic Update Time: 2020-06-11 16:24:18*
