@@ -1,0 +1,36 @@
+name: update
+
+on:
+ schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Update Ranking List
+      run: go run main.go
+      env:
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push Results
+      env:
+        GITHUB_USER: "Shaffer John"
+        GITHUB_EMAIL: "www.pig2@qq.com"
+      run: |
+        git config user.name "${GITHUB_USER}"
+        git config user.email "${GITHUB_EMAIL}"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+        git checkout master
+        git commit -am "Auto Update"
+        git push -u origin master
