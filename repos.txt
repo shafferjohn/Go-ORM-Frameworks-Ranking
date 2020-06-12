@@ -6,7 +6,9 @@ https://github.com/go-reform/reform
 https://github.com/go-xorm/xorm
 https://github.com/gobuffalo/pop
 https://github.com/huandu/go-sqlbuilder
+https://github.com/jmoiron/sqlx
 https://github.com/jschoedt/go-firestorm
 https://github.com/rushteam/gosql
 https://github.com/upper/db
 https://github.com/volatiletech/sqlboiler
+https://github.com/xo/xo
