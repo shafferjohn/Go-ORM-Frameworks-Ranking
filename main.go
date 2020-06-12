@@ -10,6 +10,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -34,10 +35,22 @@ type Commit struct {
 	} `json:"commit"`
 }
 
-var (
+type RepoSlice struct {
+	sync.RWMutex
 	Repos []Repo
+}
+
+func (rs *RepoSlice) Append(repo Repo) {
+	rs.Lock()
+	defer rs.Unlock()
+	rs.Repos = append(rs.Repos, repo)
+}
+
+var (
+	Data RepoSlice
 	AccessToken = os.Getenv("ACCESS_TOKEN")
 	GithubAPI = "https://api.github.com"
+	wg sync.WaitGroup
 )
 
 func main() {
@@ -47,10 +60,8 @@ func main() {
 	}
 	lines := strings.Split(string(content), "\n")
 
-	Repos = make([]Repo, 0)
+	Data.Repos = make([]Repo, 0)
 	for _, line := range lines {
-		var repo Repo
-		var commit Commit
 
 		line = strings.TrimSpace(line)
 		if line == "" {
@@ -68,40 +79,52 @@ func main() {
 			continue
 		}
 
-		resp, err := http.Get(fmt.Sprintf("%s/repos/%s/%s?access_token=%s", GithubAPI, paths[1], paths[2], AccessToken))
-		if err != nil || resp == nil {
-			log.Fatal(err)
-		}
-		if resp.StatusCode != 200 {
-			log.Fatal(resp.StatusCode)
-		}
+		wg.Add(1)
+		go run(paths)
 
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&repo)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		resp, err = http.Get(fmt.Sprintf("%s/repos/%s/%s/commits/%s?access_token=%s", GithubAPI, paths[1], paths[2], repo.DefaultBranch, AccessToken))
-		if err != nil || resp == nil {
-			log.Fatal(err)
-		}
-		if resp.StatusCode != 200 {
-			log.Fatal(resp.StatusCode)
-		}
-
-		decoder = json.NewDecoder(resp.Body)
-		err = decoder.Decode(&commit)
-		if err != nil {
-			log.Fatal(err)
-		}
-		repo.LastCommit = commit
-		Repos = append(Repos, repo)
 	}
-	sort.Slice(Repos, func(i int, j int) bool {
-		return Repos[i].Stars > Repos[j].Stars
+
+	wg.Wait()
+
+	sort.Slice(Data.Repos, func(i int, j int) bool {
+		return Data.Repos[i].Stars > Data.Repos[j].Stars
 	})
 	save()
+}
+
+func run(paths []string) {
+	defer wg.Done()
+	var repo Repo
+	var commit Commit
+	resp, err := http.Get(fmt.Sprintf("%s/repos/%s/%s?access_token=%s", GithubAPI, paths[1], paths[2], AccessToken))
+	if err != nil || resp == nil {
+		log.Fatal(err)
+	}
+	if resp.StatusCode != 200 {
+		log.Fatal(resp.StatusCode)
+	}
+
+	decoder := json.NewDecoder(resp.Body)
+	err = decoder.Decode(&repo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	resp, err = http.Get(fmt.Sprintf("%s/repos/%s/%s/commits/%s?access_token=%s", GithubAPI, paths[1], paths[2], repo.DefaultBranch, AccessToken))
+	if err != nil || resp == nil {
+		log.Fatal(err)
+	}
+	if resp.StatusCode != 200 {
+		log.Fatal(resp.StatusCode)
+	}
+
+	decoder = json.NewDecoder(resp.Body)
+	err = decoder.Decode(&commit)
+	if err != nil {
+		log.Fatal(err)
+	}
+	repo.LastCommit = commit
+	Data.Append(repo)
 }
 
 func save() {
@@ -121,7 +144,7 @@ func save() {
 	}
 	defer readme.Close()
 	readme.WriteString(head)
-	for _, repo := range Repos {
+	for _, repo := range Data.Repos {
 		line := fmt.Sprintf("| [%s](%s) | %d | %d | %d | %s | %s |\n", repo.Name, repo.URL, repo.Stars, repo.Forks, repo.OpenIssues, repo.Description, repo.LastCommit.Commit.Author.Date.Format("2006-01-02 15:04:05"))
 		readme.WriteString(line)
 	}
