@@ -7,13 +7,13 @@ Go ORM Frameworks Ranking List
 
 | Project Name | Stars | Forks | Open Issues | Description | Last Commit |
 | ------------ | ----- | ----- | ----------- | ----------- | ----------- |
-| [gorm](https://github.com/go-gorm/gorm) | 21945 | 2499 | 8 | The fantastic ORM library for Golang, aims to be developer friendly | 2020-12-07 02:31:06 |
-| [sqlx](https://github.com/jmoiron/sqlx) | 9376 | 729 | 259 | general purpose extensions to golang's database/sql | 2020-11-20 16:26:52 |
+| [gorm](https://github.com/go-gorm/gorm) | 21958 | 2500 | 11 | The fantastic ORM library for Golang, aims to be developer friendly | 2020-12-07 02:31:06 |
+| [sqlx](https://github.com/jmoiron/sqlx) | 9379 | 730 | 259 | general purpose extensions to golang's database/sql | 2020-11-20 16:26:52 |
 | [xorm](https://github.com/go-xorm/xorm) | 6256 | 780 | 308 | Simple and Powerful ORM for Go, support mysql,postgres,tidb,sqlite3,mssql,oracle, Moved to https://gitea.com/xorm/xorm | 2019-10-15 07:03:49 |
-| [pg](https://github.com/go-pg/pg) | 4217 | 310 | 87 | Golang ORM with focus on PostgreSQL features and performance | 2020-11-23 12:34:22 |
-| [sqlboiler](https://github.com/volatiletech/sqlboiler) | 3529 | 338 | 92 | Generate a Go ORM tailored to your database schema. | 2020-11-17 02:36:30 |
+| [pg](https://github.com/go-pg/pg) | 4220 | 311 | 88 | Golang ORM with focus on PostgreSQL features and performance | 2020-11-23 12:34:22 |
+| [sqlboiler](https://github.com/volatiletech/sqlboiler) | 3532 | 337 | 93 | Generate a Go ORM tailored to your database schema. | 2020-11-17 02:36:30 |
 | [gorp](https://github.com/go-gorp/gorp) | 3450 | 369 | 135 | Go Relational Persistence - an ORM-ish library for Go | 2019-10-26 21:47:07 |
-| [xo](https://github.com/xo/xo) | 2647 | 239 | 97 | Command line tool to generate idiomatic Go code for SQL databases supporting PostgreSQL, MySQL, SQLite, Oracle, and Microsoft SQL Server | 2020-04-25 01:19:23 |
+| [xo](https://github.com/xo/xo) | 2649 | 239 | 97 | Command line tool to generate idiomatic Go code for SQL databases supporting PostgreSQL, MySQL, SQLite, Oracle, and Microsoft SQL Server | 2020-04-25 01:19:23 |
 | [db](https://github.com/upper/db) | 2407 | 165 | 124 | Data access layer for PostgreSQL, CockroachDB, MySQL, SQLite and MongoDB with ORM-like features. | 2020-12-05 19:40:13 |
 | [reform](https://github.com/go-reform/reform) | 1039 | 49 | 66 | A better ORM for Go, based on non-empty interfaces and code generation. | 2020-12-08 08:41:05 |
 | [pop](https://github.com/gobuffalo/pop) | 993 | 206 | 114 | A Tasty Treat For All Your Database Needs | 2020-10-20 06:24:26 |
@@ -22,4 +22,4 @@ Go ORM Frameworks Ranking List
 | [gosql](https://github.com/rushteam/gosql) | 130 | 11 | 1 | golang orm and sql builder | 2020-11-22 00:57:55 |
 | [go-firestorm](https://github.com/jschoedt/go-firestorm) | 20 | 5 | 3 | Simple Go ORM for Google/Firebase Cloud Firestore | 2020-07-07 16:31:05 |
 
-*Last Automatic Update Time: 2020-12-09 00:14:11*
+*Last Automatic Update Time: 2020-12-10 00:06:11*
